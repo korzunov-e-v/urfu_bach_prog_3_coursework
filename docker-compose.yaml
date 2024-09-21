@@ -1,0 +1,35 @@
+#file: noinspection SpellCheckingInspection
+services:
+  app:
+    build:
+      context: .
+#    volumes:
+#      - ./build:/build/
+#    env_file:
+#      - .env
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:15
+    restart: always
+    user: postgres
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - cw3-postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=urfu_cw3
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  cw3-postgres-data:
