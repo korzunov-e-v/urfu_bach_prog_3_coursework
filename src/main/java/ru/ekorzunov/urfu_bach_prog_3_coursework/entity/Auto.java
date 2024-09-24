@@ -44,4 +44,8 @@ public class Auto {
     @OneToMany(targetEntity = RentRecord.class, fetch = FetchType.EAGER, mappedBy = "auto")
     private List<RentRecord> rent_records = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "Auto{" + reg_number + " " + manufacturer + " " + model + "}";
+    }
 }
