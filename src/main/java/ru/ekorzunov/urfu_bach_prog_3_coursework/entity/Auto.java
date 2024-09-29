@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class Auto {
     private long id;
 
     @Column(name = "reg_number", nullable = false, unique = true)
-    private String reg_number;
+    private String regNumber;
 
     @Column(name = "manufacturer", nullable = false)
     private String manufacturer;
@@ -37,15 +39,16 @@ public class Auto {
     @Column(name = "color", nullable = false)
     private String color;
 
-    @ManyToOne(targetEntity = Client.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id")
-    private Client owner;
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "owner_id", nullable = false)
+    @Fetch(FetchMode.JOIN)
+    private User owner;
 
-    @OneToMany(targetEntity = RentRecord.class, fetch = FetchType.EAGER, mappedBy = "auto")
-    private List<RentRecord> rent_records = new ArrayList<>();
+    @OneToMany(targetEntity = RentRecord.class, fetch = FetchType.EAGER, mappedBy = "auto",  cascade = CascadeType.ALL)
+    private List<RentRecord> rentRecords = new ArrayList<>();
 
     @Override
     public String toString() {
-        return "Auto{" + reg_number + " " + manufacturer + " " + model + "}";
+        return "Auto{" + regNumber + " " + manufacturer + " " + model + "}";
     }
 }

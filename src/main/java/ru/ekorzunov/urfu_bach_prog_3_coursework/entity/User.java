@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +47,13 @@ public class User {
 
     @OneToMany(targetEntity = UserAction.class, mappedBy = "user")
     private List<UserAction> actions = new ArrayList<>();
+
+    @OneToMany(targetEntity = Auto.class, fetch = FetchType.EAGER, mappedBy = "owner")
+    @Fetch(FetchMode.JOIN)
+    private List<Auto> autos = new ArrayList<>();
+
+    @OneToMany(targetEntity = RentRecord.class, fetch = FetchType.EAGER, mappedBy = "user")
+    @Fetch(FetchMode.JOIN)
+    private List<RentRecord> rent_records = new ArrayList<>();
 
 }

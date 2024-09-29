@@ -24,8 +24,8 @@ public class SecurityController {
     }
 
     @GetMapping("/index")
-    public String home() {
-        return "home";
+    public String index() {
+        return "index";
     }
 
     @GetMapping("/login")

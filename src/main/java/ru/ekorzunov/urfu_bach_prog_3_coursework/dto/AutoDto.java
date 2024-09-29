@@ -1,31 +1,36 @@
 package ru.ekorzunov.urfu_bach_prog_3_coursework.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.User;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientDto {
+public class AutoDto {
 
     private long id;
 
     @NotEmpty
-    private String firstName;
+    private String regNumber;
 
     @NotEmpty
-    private String lastName;
+    private String manufacturer;
 
-    @NotEmpty(message = "Email should not be empty.")
-    @Email
-    private String email;
+    @NotEmpty
+    private String model;
 
-    @NotEmpty(message = "Password should not be empty.")
-    private String password;
+    @NotEmpty
+    private int year;
+
+    @NotEmpty
+    private String color;
+
+    @NotEmpty
+    private User owner;
 
 }

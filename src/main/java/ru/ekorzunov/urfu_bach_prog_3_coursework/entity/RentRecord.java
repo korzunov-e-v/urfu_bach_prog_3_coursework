@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -22,12 +24,14 @@ public class RentRecord {
     @Column(name = "id")
     private long id;
 
-    @ManyToOne(targetEntity = Client.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "client", nullable = false)
-    private Client client;
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user", nullable = false)
+    @Fetch(FetchMode.JOIN)
+    private User user;
 
     @ManyToOne(targetEntity = Auto.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "auto", nullable = false)
+    @JoinColumn(name = "auto_id", nullable = false)
+    @Fetch(FetchMode.JOIN)
     private Auto auto;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
