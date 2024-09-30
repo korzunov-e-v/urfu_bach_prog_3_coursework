@@ -113,8 +113,28 @@
                th:if="${#fields.hasErrors('color')}"></p>
         </div>
 
+        <div class="form-group mb-3">
+            <label for="owner" class="form-label">Owner</label>
+            <input
+                    class="form-control"
+                    id="owner"
+                    name="owner"
+                    placeholder="Type to search..."
+                    th:field="*{owner}"
+                    list="datalistOptions"
+            />
+            <datalist id="datalistOptions">
+                <option th:each="cur_user: ${users}" th:value="${cur_user.getId()}" th:text="${cur_user.toString()}"></option>
+            </datalist>
+
+            <p th:errors="*{owner}" class="text-danger"
+               th:if="${#fields.hasErrors('owner')}"></p>
+        </div>
+
+        <input id="id" name="id" th:field="*{id}" hidden/>
+
         <div class="form-group">
-            <button class="btn btn-primary" type="submit">Add Auto</button>
+            <button class="btn btn-primary" type="submit">Save Auto</button>
         </div>
     </form>
     <hr/>

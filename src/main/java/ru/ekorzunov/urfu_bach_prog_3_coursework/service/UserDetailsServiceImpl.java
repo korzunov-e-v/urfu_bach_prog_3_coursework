@@ -1,5 +1,6 @@
 package ru.ekorzunov.urfu_bach_prog_3_coursework.service;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,15 +13,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomUsersDetailService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
 
-    public CustomUsersDetailService(UserRepository userRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
@@ -41,4 +41,14 @@ public class CustomUsersDetailService implements UserDetailsService {
         }
 
     }
+
+    public boolean isAdmin(String usernameOrEmail) {
+        UserDetails userDetails = loadUserByUsername(usernameOrEmail);
+        return isAdmin(userDetails);
+    }
+
+    public boolean isAdmin(UserDetails userDetails) {
+        return userDetails.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
+    }
+
 }

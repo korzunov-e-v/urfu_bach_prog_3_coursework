@@ -59,7 +59,7 @@
             <td th:text="${auto.getModel()}"></td>
             <td th:text="${auto.getYear()}"></td>
             <td th:text="${auto.getColor()}"></td>
-            <td th:text="${auto.getOwner()}"></td>
+            <td th:text="${auto.getOwner().toString()}"></td>
             <td>
                 <a th:href="@{./update(autoId=${auto.id})}" class="btn btn-info">Update</a>
 

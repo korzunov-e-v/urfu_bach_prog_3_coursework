@@ -56,4 +56,12 @@ public class User {
     @Fetch(FetchMode.JOIN)
     private List<RentRecord> rent_records = new ArrayList<>();
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + id + ", " + email + ", " + getFullName() + '}';
+    }
 }
