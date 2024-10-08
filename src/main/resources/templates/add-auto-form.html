@@ -1,5 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<!--/*@thymesVar id="hideOwner" type="java.lang.Boolean"*/-->
 <!--/*@thymesVar id="auto" type="ru.ekorzunov.urfu_bach_prog_3_coursework.dto.AutoDto"*/-->
 <!--/*@thymesVar id="users" type="java.util.List<ru.ekorzunov.urfu_bach_prog_3_coursework.entity.User>"*/-->
 <!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
@@ -113,7 +114,7 @@
                th:if="${#fields.hasErrors('color')}"></p>
         </div>
 
-        <div class="form-group mb-3">
+        <div class="form-group mb-3" th:attrappend="hidden=${hideOwner == true}?true">
             <label for="owner" class="form-label">Owner</label>
             <input
                     class="form-control"

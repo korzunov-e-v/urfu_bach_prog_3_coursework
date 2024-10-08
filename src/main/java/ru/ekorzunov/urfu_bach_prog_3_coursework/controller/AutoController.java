@@ -39,6 +39,7 @@ public class AutoController {
 
     @GetMapping("/list")
     public ModelAndView getAllAutos() {
+        // todo: get all if admin
         List<Auto> autos = autoRepository.findAll().stream().toList();
         ModelAndView mav = new ModelAndView("list-autos");
         mav.addObject("autos", autos);
@@ -47,6 +48,7 @@ public class AutoController {
 
     @GetMapping("/{id}")
     public ModelAndView getStudent(@PathVariable("id") long id) {
+        // todo: check if user is owner
         Auto auto = autoRepository.findById(id).orElseThrow();
         ModelAndView mav = new ModelAndView("retrieve-auto");
         mav.addObject("auto", auto);
@@ -57,17 +59,21 @@ public class AutoController {
     public ModelAndView addAutoForm(@AuthenticationPrincipal UserDetails userDetail, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("add-auto-form");
 
+        boolean hideOwner;
         List<User> users;
         boolean is_admin = request.isUserInRole("ROLE_ADMIN");
         if (is_admin) {
             users = userRepository.findAll();
+            hideOwner = false;
         } else {
             User currentUser = userRepository.findByEmail(userDetail.getUsername());
             users = List.of(currentUser);
+            hideOwner = true;
         }
 
         mav.addObject("auto", new Auto());
         mav.addObject("users", users);
+        mav.addObject("hideOwner", hideOwner);
         return mav;
     }
 
@@ -86,21 +92,37 @@ public class AutoController {
     public ModelAndView showUpdateForm(@RequestParam Long autoId, @AuthenticationPrincipal UserDetails userDetail, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("add-auto-form");
 
+        // todo: throw 404
+//        Auto auto = autoRepository.findById(autoId).orElseThrow();
+//        Auto auto = new Auto();
+//        if (optionalAuto.isPresent()) {
+//            auto = optionalAuto.get();
+//        } else {
+////            throw new NotFoundException
+//        }
+
+
+        // 2
         Optional<Auto> optionalAuto = autoRepository.findById(autoId);
         Auto auto = new Auto();
         if (optionalAuto.isPresent()) {
             auto = optionalAuto.get();
         }
-        mav.addObject("auto", auto);
 
         List<User> users;
-        boolean is_admin = request.isUserInRole("ROLE_ADMIN");
-        if (is_admin) {
+        boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
+        if (isAdmin) {
             users = userRepository.findAll();
         } else {
             User user = userRepository.findByEmail(userDetail.getUsername());
             users = List.of(user);
+            boolean isOwner = auto.getOwner().getId() == user.getId();
+            if (!isOwner) {
+                throw new AccessDeniedException("403 returned");
+            }
         }
+
+        mav.addObject("auto", auto);
         mav.addObject("users", users);
 
         return mav;
