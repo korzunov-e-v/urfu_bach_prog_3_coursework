@@ -1,6 +1,8 @@
 package ru.ekorzunov.urfu_bach_prog_3_coursework.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,9 +16,13 @@ import ru.ekorzunov.urfu_bach_prog_3_coursework.service.UserService;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class SecurityController {
 
     private final UserService userService;
+
+    @Value("${app.admin.reg-token}")
+    private String adminToken;
 
 
     public SecurityController(UserService userService) {
@@ -37,6 +43,7 @@ public class SecurityController {
     public String showRegistrationForm(Model model) {
         UserDto userDto = new UserDto();
         model.addAttribute("user", userDto);
+        log.info("Admin token = '" + adminToken + "'");
         return "register";
     }
 
@@ -56,7 +63,11 @@ public class SecurityController {
             return "/register";
         }
 
-        userService.saveUser(userDto);
+        if (userDto.getAdminToken().equals(adminToken)) {
+            userService.saveUser(userDto, true);
+        } else {
+            userService.saveUser(userDto);
+        }
         return "redirect:/register?success";
     }
 

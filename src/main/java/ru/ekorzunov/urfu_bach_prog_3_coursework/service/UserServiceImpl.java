@@ -28,13 +28,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(UserDto userDto) {
+        boolean isAdmin = false;
+        saveUser(userDto, isAdmin);
+    }
+
+    @Override
+    public void saveUser(UserDto userDto, boolean isAdmin) {
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        Role role = checkRoleExist("ADMIN");
+        Role role;
+        if (isAdmin) {
+            role = checkRoleExist("ADMIN");
+        } else {
+            role = checkRoleExist("READ_ONLY");
+        }
+
         user.setRoles(List.of(role));
         userRepository.save(user);
     }
@@ -61,10 +73,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private Role checkRoleExist(String roleName) {
-        Role role = roleRepository.findByName(roleName);
+        Role role = roleRepository.findByName("ROLE_" + roleName);
         if (role == null) {
             role = new Role();
-            role.setName("ROLE_ADMIN");
+            role.setName("ROLE_" + roleName);
             roleRepository.save(role);
         }
 

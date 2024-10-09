@@ -28,6 +28,8 @@ public class UserDto {
     @NotEmpty(message = "Password should not be empty.")
     private String password;
 
+    private String adminToken;
+
     public String getFullName() {
         return firstName + " " + lastName;
     }

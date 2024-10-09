@@ -38,18 +38,31 @@ public class AutoController {
     }
 
     @GetMapping("/list")
-    public ModelAndView getAllAutos() {
-        // todo: get all if admin
-        List<Auto> autos = autoRepository.findAll().stream().toList();
+    public ModelAndView getAllAutos(@AuthenticationPrincipal UserDetails userDetail, HttpServletRequest request) {
+        List<Auto> autos;
+        boolean is_admin = request.isUserInRole("ROLE_ADMIN");
+        if (is_admin) {
+            autos = autoRepository.findAll();
+        } else {
+            User currentUser = userRepository.findByEmail(userDetail.getUsername());
+            autos = currentUser.getAutos();
+        }
+
         ModelAndView mav = new ModelAndView("list-autos");
         mav.addObject("autos", autos);
         return mav;
     }
 
     @GetMapping("/{id}")
-    public ModelAndView getStudent(@PathVariable("id") long id) {
-        // todo: check if user is owner
+    public ModelAndView getAuto(@PathVariable("id") long id, @AuthenticationPrincipal UserDetails userDetail, HttpServletRequest request) {
+        boolean is_admin = request.isUserInRole("ROLE_ADMIN");
+        User currentUser = userRepository.findByEmail(userDetail.getUsername());
         Auto auto = autoRepository.findById(id).orElseThrow();
+        if (is_admin || auto.getOwner().equals(currentUser)) {
+            // todo: show auto
+        } else {
+            // throw 403
+        }
         ModelAndView mav = new ModelAndView("retrieve-auto");
         mav.addObject("auto", auto);
         return mav;

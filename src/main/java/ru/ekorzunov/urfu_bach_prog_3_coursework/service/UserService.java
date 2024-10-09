@@ -11,6 +11,8 @@ public interface UserService {
 
     void saveUser(UserDto userDto);
 
+    void saveUser(UserDto userDto, boolean isAdmin);
+
     User findUserByEmail(String email);
 
     List<UserDto> findAllUsers();

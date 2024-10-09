@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "app.admin.reg-token",
+      "type": "java.lang.String",
+      "description": "Description for app.admin.reg-token.",
+      "defaultValue": "this-token-is-insecure!!!-replace-it!!!"
+    }
+  ]
+}
