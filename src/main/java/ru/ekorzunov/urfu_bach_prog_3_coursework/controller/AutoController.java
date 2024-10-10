@@ -58,10 +58,8 @@ public class AutoController {
         boolean is_admin = request.isUserInRole("ROLE_ADMIN");
         User currentUser = userRepository.findByEmail(userDetail.getUsername());
         Auto auto = autoRepository.findById(id).orElseThrow();
-        if (is_admin || auto.getOwner().equals(currentUser)) {
-            // todo: show auto
-        } else {
-            // throw 403
+        if (!(is_admin || auto.getOwner().equals(currentUser))) {
+            throw new AccessDeniedException("403 returned");
         }
         ModelAndView mav = new ModelAndView("retrieve-auto");
         mav.addObject("auto", auto);
@@ -106,21 +104,7 @@ public class AutoController {
         ModelAndView mav = new ModelAndView("add-auto-form");
 
         // todo: throw 404
-//        Auto auto = autoRepository.findById(autoId).orElseThrow();
-//        Auto auto = new Auto();
-//        if (optionalAuto.isPresent()) {
-//            auto = optionalAuto.get();
-//        } else {
-////            throw new NotFoundException
-//        }
-
-
-        // 2
-        Optional<Auto> optionalAuto = autoRepository.findById(autoId);
-        Auto auto = new Auto();
-        if (optionalAuto.isPresent()) {
-            auto = optionalAuto.get();
-        }
+        Auto auto = autoRepository.findById(autoId).orElseThrow();
 
         List<User> users;
         boolean isAdmin = request.isUserInRole("ROLE_ADMIN");

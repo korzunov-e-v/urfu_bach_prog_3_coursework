@@ -2,6 +2,7 @@ package ru.ekorzunov.urfu_bach_prog_3_coursework.controller;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,17 +20,14 @@ import java.util.List;
 @Slf4j
 public class SecurityController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @Value("${app.admin.reg-token}")
     private String adminToken;
 
 
-    public SecurityController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping("/index")
+    @GetMapping({"/", "/index"})
     public String index() {
         return "index";
     }
