@@ -3,12 +3,12 @@ package ru.ekorzunov.urfu_bach_prog_3_coursework.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.security.access.AccessDeniedException;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.Auto;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.User;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.repository.AutoRepository;
@@ -16,7 +16,6 @@ import ru.ekorzunov.urfu_bach_prog_3_coursework.repository.UserRepository;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.service.UserDetailsServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller

@@ -1,6 +1,5 @@
 package ru.ekorzunov.urfu_bach_prog_3_coursework.service;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
