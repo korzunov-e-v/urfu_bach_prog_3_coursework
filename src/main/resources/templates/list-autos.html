@@ -32,7 +32,7 @@
         </thead>
         <tbody>
         <tr th:each="auto: ${autos}">
-            <td th:text="${auto.getRegNumber()}"></td>
+            <td><a th:text="${auto.getRegNumber()}" th:href="@{./{autoId}(autoId = ${auto.getId()})}"></a></td>
             <td th:text="${auto.getManufacturer()}"></td>
             <td th:text="${auto.getModel()}"></td>
             <td th:text="${auto.getYear()}"></td>

@@ -1,0 +1,104 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}"
+>
+
+<!--/*@thymesVar id="auto" type="ru.ekorzunov.urfu_bach_prog_3_coursework.dto.AutoDto"*/-->
+
+<head>
+    <title>Retrieve Auto</title>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+
+    <hr/>
+
+    <h3>Retrieve Auto</h3>
+    <hr/>
+
+        <div class="form-group mb-3">
+            <label for="regNumber" class="form-label">Registration number</label>
+            <input
+                    class="form-control"
+                    id="regNumber"
+                    name="regNumber"
+                    placeholder="Enter registration number"
+                    th:value="${auto.regNumber}"
+                    type="text"
+                    readonly
+            />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="manufacturer" class="form-label">Manufacturer</label>
+            <input
+                    class="form-control"
+                    id="manufacturer"
+                    name="manufacturer"
+                    placeholder="Enter manufacturer"
+                    th:value="${auto.manufacturer}"
+                    type="text"
+                    readonly
+            />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="model" class="form-label">Model</label>
+            <input
+                    class="form-control"
+                    id="model"
+                    name="model"
+                    placeholder="Enter model"
+                    th:value="${auto.model}"
+                    type="text"
+                    readonly
+            />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="year" class="form-label">Year</label>
+            <input
+                    class="form-control"
+                    id="year"
+                    name="year"
+                    placeholder="Enter year"
+                    th:value="${auto.year}"
+                    type="number"
+                    min="1900"
+                    max="2100"
+                    readonly
+            />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="color" class="form-label">Color</label>
+            <input
+                    class="form-control"
+                    id="color"
+                    name="color"
+                    placeholder="Enter color"
+                    th:value="${auto.color}"
+                    type="text"
+                    readonly
+            />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="owner" class="form-label">Owner</label>
+            <input
+                    class="form-control"
+                    id="owner"
+                    name="owner"
+                    placeholder="Type to search..."
+                    th:value="${auto.owner.getFullName() + ' (' + auto.owner.getEmail() + ')'}"
+                    readonly
+            />
+        </div>
+
+    <hr/>
+    <a th:href="@{./list}">Back to list</a>
+</div>
+
+</body>
+</html>
