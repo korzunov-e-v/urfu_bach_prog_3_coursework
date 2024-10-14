@@ -9,17 +9,13 @@
 <!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
 
 <head>
-    <title>Auto Management System</title>
+    <title>List Autos</title>
 </head>
 
 <body>
 <div class="container" layout:fragment="content">
-
-    <hr/>
     <a th:href="@{./add}" class="btn btn-primary">Add Auto</a>
-    <br/><br/>
-    <table class="table table-bordered table-striped" id="autoTable">
-
+    <table class="table table-bordered table-striped mt-3" id="autoTable">
         <thead>
         <tr>
             <th>Reg number</th>
@@ -40,7 +36,6 @@
             <td th:text="${auto.getOwner().toString()}"></td>
             <td>
                 <a th:href="@{./update(autoId=${auto.id})}" class="btn btn-info">Update</a>
-
                 <a th:href="@{./delete(autoId=${auto.id})}" class="btn btn-danger ml-2">Delete</a>
             </td>
         </tr>

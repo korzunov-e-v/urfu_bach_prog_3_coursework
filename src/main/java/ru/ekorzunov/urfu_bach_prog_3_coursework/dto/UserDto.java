@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.Role;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -25,12 +29,22 @@ public class UserDto {
     @Email
     private String email;
 
-    @NotEmpty(message = "Password should not be empty.")
     private String password;
 
     private String adminToken;
 
+    private List<Role> roles;
+
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
+    public String getRolesString() {
+        return roles.stream().map(r -> r.toString().replace("ROLE_", "")).collect(Collectors.joining(", "));
+    }
+
+    public boolean isPasswordSet() {
+        return !(password == null || password.isEmpty());
+    }
+
 }

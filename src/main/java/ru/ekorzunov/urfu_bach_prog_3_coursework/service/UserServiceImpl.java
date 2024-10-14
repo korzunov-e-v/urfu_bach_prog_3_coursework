@@ -51,24 +51,43 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    public void updateUser(UserDto userDto) {
+        User user = userRepository.findById(userDto.getId()).orElseThrow();
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        if (userDto.isPasswordSet()) {
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        }
+        user.setRoles(userDto.getRoles());
+        userRepository.save(user);
+    }
+
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
+    public User findUserById(long userId) {
+        return userRepository.findById(userId).orElseThrow();
+    }
+
+    @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
-                .map((user) -> mapToUserDto(user))
+                .map(this::mapToUserDto)
                 .collect(Collectors.toList());
     }
 
-    private UserDto mapToUserDto(User user) {
+    public UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
+        userDto.setRoles(user.getRoles());
         return userDto;
     }
 

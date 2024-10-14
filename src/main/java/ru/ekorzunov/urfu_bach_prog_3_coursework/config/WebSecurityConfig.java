@@ -25,7 +25,7 @@ public class WebSecurityConfig {
                         auth -> auth
                                 .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
-                                .requestMatchers("/users").hasRole("ADMIN")
+                                .requestMatchers("/users/**").hasRole("ADMIN")
                                 .requestMatchers("/autos/**").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(

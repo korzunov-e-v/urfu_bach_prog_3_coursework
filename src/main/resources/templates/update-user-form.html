@@ -2,21 +2,25 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{base.html}"
 >
 
 <!--/*@thymesVar id="user" type="ru.ekorzunov.urfu_bach_prog_3_coursework.dto.UserDto"*/-->
+<!--/*@thymesVar id="allRoles" type="java.util.List<ru.ekorzunov.urfu_bach_prog_3_coursework.entity.Role>"*/-->
+<!--/*@thymesVar id="userRoles" type="java.util.List<java.lang.String>"*/-->
 <!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
+<!--/*@thymesVar id="#authentication" type="org.springframework.security.core.Authentication"*/-->
 
 <head>
-    <title>Register</title>
+    <title>Update User</title>
 </head>
 <body>
 <div class="container" layout:fragment="content">
     <div class="row col-md-8 offset-md-2">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-center">Registration</h2>
+                <h2 class="text-center">Update info</h2>
             </div>
             <div th:if="${param.success}">
                 <div class="alert alert-info">
@@ -27,7 +31,7 @@
                 <form
                         method="post"
                         role="form"
-                        th:action="@{/register/save}"
+                        th:action="@{/users/update/save}"
                         th:object="${user}"
                 >
                     <div class="form-group mb-3">
@@ -78,45 +82,41 @@
                                 class="form-control"
                                 id="password"
                                 name="password"
-                                placeholder="Enter password"
+                                placeholder="Enter new password"
                                 th:field="*{password}"
                                 type="password"
+                                value=""
                         />
                         <p th:errors="*{password}" class="text-danger"
                            th:if="${#fields.hasErrors('password')}"></p>
                     </div>
-                    <p>
-                        <button
-                                class="btn btn-primary"
-                                type="button"
-                                data-toggle="collapse"
-                                data-target="#collapseExample"
-                                aria-expanded="false"
-                                aria-controls="collapseExample"
-                        >
-                            I am Admin
-                        </button>
-                    </p>
-                    <div class="collapse" id="collapseExample">
-                        <div class="form-group mb-3">
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="adminToken"
-                                    name="adminToken"
-                                    placeholder="Enter admin token for register as admin"
-                            >
-                        </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Roles</label>
+                        <select id="roleSelect" class="form-select" multiple="multiple" name="roles">
+                            <option th:each="cur_role: ${allRoles}"
+                                    th:value="${cur_role.getId()}"
+                                    th:text="${cur_role.toString()}"
+                                    th:selected='${userRoles.contains(cur_role.getName())}'
+                            ></option>
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Register</button>
-                        <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+                        <input hidden th:field="*{id}">
+                        <button class="btn btn-primary" type="submit">Update</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#roleSelect').multiselect({
+                includeSelectAllOption: true,
+            });
+        });
+    </script>
 </div>
 </body>
 </html>
