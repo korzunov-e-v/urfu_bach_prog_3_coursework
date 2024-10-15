@@ -13,7 +13,6 @@ import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.Auto;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.User;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.repository.AutoRepository;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.repository.UserRepository;
-import ru.ekorzunov.urfu_bach_prog_3_coursework.service.UserDetailsServiceImpl;
 
 import java.util.List;
 

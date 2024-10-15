@@ -1,6 +1,5 @@
 package ru.ekorzunov.urfu_bach_prog_3_coursework.config;
 
-import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.util.ContentCachingRequestWrapper;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.User;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.UserAction;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.repository.UserActionRepository;
@@ -28,7 +26,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
     UserRepository userRepository;
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         Principal principal = request.getUserPrincipal();
         User user;
         if (principal != null) {

@@ -19,7 +19,6 @@ import ru.ekorzunov.urfu_bach_prog_3_coursework.dto.UserDto;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.Role;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.User;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.repository.RoleRepository;
-import ru.ekorzunov.urfu_bach_prog_3_coursework.service.UserService;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.service.UserServiceImpl;
 
 import java.util.List;
