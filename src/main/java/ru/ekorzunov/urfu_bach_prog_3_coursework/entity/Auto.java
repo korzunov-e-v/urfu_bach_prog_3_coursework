@@ -44,7 +44,7 @@ public class Auto {
     @Fetch(FetchMode.JOIN)
     private User owner;
 
-    @OneToMany(targetEntity = RentRecord.class, fetch = FetchType.EAGER, mappedBy = "auto",  cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = RentRecord.class, fetch = FetchType.LAZY, mappedBy = "auto",  cascade = CascadeType.ALL)
     private List<RentRecord> rentRecords = new ArrayList<>();
 
     @Override

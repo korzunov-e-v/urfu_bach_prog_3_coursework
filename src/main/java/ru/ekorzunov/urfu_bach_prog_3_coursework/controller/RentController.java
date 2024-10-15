@@ -44,8 +44,8 @@ public class RentController {
         if (is_admin) {
             rentRecords = rentrecordRepository.findAll();
         } else {
-            User currentUser = userRepository.findByEmail(userDetail.getUsername());
-            rentRecords = currentUser.getRentRecords();
+            long userId = userRepository.findByEmail(userDetail.getUsername()).getId();
+            rentRecords = rentrecordRepository.findAllByUserId(userId);
         }
 
         ModelAndView mav = new ModelAndView("list-rentrecords");
@@ -134,11 +134,12 @@ public class RentController {
 
     @GetMapping("/delete")
     public String deleteRentRecord(@RequestParam Long rentrecordId, @AuthenticationPrincipal UserDetails userDetail, HttpServletRequest request) {
-        User user = userRepository.findByEmail(userDetail.getUsername());
+        long userId = userRepository.findByEmail(userDetail.getUsername()).getId();
         boolean is_admin = request.isUserInRole("ROLE_ADMIN");
-        boolean is_owner = rentrecordRepository.findById(rentrecordId).orElseThrow().getUser().getId() == user.getId();
+        boolean is_owner = rentrecordRepository.findById(rentrecordId).orElseThrow().getUser().getId() == userId;
+
         if (is_admin || is_owner) {
-            rentrecordRepository.deleteById(rentrecordId);
+            rentrecordRepository.deleteAllById(List.of(rentrecordId));
         } else {
             throw new AccessDeniedException("403 returned");
         }

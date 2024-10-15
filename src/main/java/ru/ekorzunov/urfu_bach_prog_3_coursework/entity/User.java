@@ -52,7 +52,7 @@ public class User {
     @Fetch(FetchMode.JOIN)
     private List<Auto> autos = new ArrayList<>();
 
-    @OneToMany(targetEntity = RentRecord.class, fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(targetEntity = RentRecord.class, fetch = FetchType.LAZY, mappedBy = "user")
     @Fetch(FetchMode.JOIN)
     private List<RentRecord> rentRecords = new ArrayList<>();
 
