@@ -17,7 +17,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loggingInterceptor()).addPathPatterns("/users/update/save");
         registry.addInterceptor(loggingInterceptor()).addPathPatterns("/register/save");
-        registry.addInterceptor(loggingInterceptor()).addPathPatterns("/login");
         registry.addInterceptor(loggingInterceptor()).addPathPatterns("/logout");
 
         registry.addInterceptor(loggingInterceptor()).addPathPatterns("/autos/save");

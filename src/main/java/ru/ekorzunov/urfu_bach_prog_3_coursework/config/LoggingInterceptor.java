@@ -1,11 +1,14 @@
 package ru.ekorzunov.urfu_bach_prog_3_coursework.config;
 
+import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.util.ContentCachingRequestWrapper;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.User;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.entity.UserAction;
 import ru.ekorzunov.urfu_bach_prog_3_coursework.repository.UserActionRepository;
@@ -33,7 +36,6 @@ public class LoggingInterceptor implements HandlerInterceptor {
         } else {
             user = null;
         }
-
         UserAction.StatusEnum status;
 
         if (ex != null) {
@@ -42,9 +44,11 @@ public class LoggingInterceptor implements HandlerInterceptor {
             status = UserAction.StatusEnum.SUCCESS;
         }
 
+        HandlerMethod hm = (HandlerMethod) handler;
+
         UserAction userAction = new UserAction(
                 0L,
-                handler.method.name,
+                hm.getMethod().getName(),
                 status,
                 response.getStatus(),
                 new Date(),
