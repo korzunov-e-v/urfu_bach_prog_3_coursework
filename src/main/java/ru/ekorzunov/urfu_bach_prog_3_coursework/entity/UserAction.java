@@ -25,12 +25,24 @@ public class UserAction {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private StatusEnum status;
+
+    @Column(name = "status_code", nullable = false)
+    private int status_code;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "timestamp")
     private Date timestamp;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    public enum StatusEnum {
+        SUCCESS,
+        FAILED
+    }
 
 }
