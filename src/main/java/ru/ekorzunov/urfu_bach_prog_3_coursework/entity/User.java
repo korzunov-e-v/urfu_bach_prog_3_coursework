@@ -54,7 +54,7 @@ public class User {
 
     @OneToMany(targetEntity = RentRecord.class, fetch = FetchType.EAGER, mappedBy = "user")
     @Fetch(FetchMode.JOIN)
-    private List<RentRecord> rent_records = new ArrayList<>();
+    private List<RentRecord> rentRecords = new ArrayList<>();
 
     public String getFullName() {
         return firstName + " " + lastName;

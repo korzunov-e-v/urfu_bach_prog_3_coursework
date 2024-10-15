@@ -1,0 +1,75 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}"
+>
+
+<!--/*@thymesVar id="rentrecord" type="ru.ekorzunov.urfu_bach_prog_3_coursework.dto.RentRecordDto"*/-->
+
+<head>
+    <title>Retrieve RentRecord</title>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h3>Retrieve RentRecord</h3>
+    <hr/>
+        <div class="form-group mb-3">
+            <a th:href="@{./update(rentrecordId=${rentrecord.id})}" class="btn btn-info">Update</a>
+            <a th:href="@{./delete(rentrecordId=${rentrecord.id})}" class="btn btn-danger ml-2">Delete</a>
+        </div>
+
+
+        <div class="form-group mb-3">
+            <label for="user" class="form-label">User</label>
+            <input
+                    class="form-control"
+                    id="user"
+                    name="user"
+                    th:value="${rentrecord.user}"
+                    type="text"
+                    readonly
+            />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="auto" class="form-label">Auto</label>
+            <input
+                    class="form-control"
+                    id="auto"
+                    name="auto"
+                    th:value="${rentrecord.auto}"
+                    type="text"
+                    readonly
+            />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="timestampStart" class="form-label">timestampStart</label>
+            <input
+                    class="form-control"
+                    id="timestampStart"
+                    name="timestampStart"
+                    th:value="${rentrecord.timestampStart}"
+                    type="datetime-local"
+                    readonly
+            />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="timestampEnd" class="form-label">Year</label>
+            <input
+                    class="form-control"
+                    id="timestampEnd"
+                    name="timestampEnd"
+                    th:value="${rentrecord.timestampEnd}"
+                    type="datetime-local"
+                    readonly
+            />
+        </div>
+
+    <hr/>
+    <a th:href="@{./list}">Back to list</a>
+</div>
+
+</body>
+</html>

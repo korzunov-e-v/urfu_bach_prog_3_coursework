@@ -49,6 +49,6 @@ public class Auto {
 
     @Override
     public String toString() {
-        return "Auto{" + regNumber + " " + manufacturer + " " + model + "}";
+        return "Auto{" + regNumber + " " + manufacturer + " " + model + " " + owner.getFullName() + "}";
     }
 }

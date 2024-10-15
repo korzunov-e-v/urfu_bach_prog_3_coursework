@@ -34,12 +34,12 @@ public class RentRecord {
     @Fetch(FetchMode.JOIN)
     private Auto auto;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name = "timestamp_start", nullable = false)
-    private Date timestamp_start;
+    private Date timestampStart;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name = "timestamp_end", nullable = true)
-    private Date timestamp_end;
+    private Date timestampEnd;
 
 }

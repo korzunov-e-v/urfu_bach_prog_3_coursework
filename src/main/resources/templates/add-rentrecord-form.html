@@ -1,0 +1,98 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}"
+>
+
+<!--/*@thymesVar id="hideOwner" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="rentrecord" type="ru.ekorzunov.urfu_bach_prog_3_coursework.dto.RentRecordDto"*/-->
+<!--/*@thymesVar id="users" type="java.util.List<ru.ekorzunov.urfu_bach_prog_3_coursework.entity.User>"*/-->
+<!--/*@thymesVar id="autos" type="java.util.List<ru.ekorzunov.urfu_bach_prog_3_coursework.entity.Auto>"*/-->
+<!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
+
+
+<head>
+    <title>Edit Auto</title>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h3>Add/Change Auto</h3>
+
+    <form th:action="@{./save}" th:object="${rentrecord}" method="POST" role="form" class="mt-3">
+
+        <div class="form-group mb-3">
+            <label for="auto" class="form-label">Auto</label>
+            <input
+                    class="form-control"
+                    id="auto"
+                    name="auto"
+                    placeholder="Enter auto"
+                    th:field="*{auto}"
+                    type="text"
+                    list="autoDatalistOptions"
+            />
+            <datalist id="autoDatalistOptions">
+                <option th:each="cur_auto: ${autos}" th:value="${cur_auto.getId()}" th:text="${cur_auto.toString()}"></option>
+            </datalist>
+            <p th:errors="*{auto}" class="text-danger"
+               th:if="${#fields.hasErrors('auto')}"></p>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="timestampStart" class="form-label">timestampStart</label>
+            <input
+                    class="form-control"
+                    id="timestampStart"
+                    name="timestampStart"
+                    placeholder="Enter timestampStart"
+                    th:field="*{timestampStart}"
+                    type="datetime-local"
+            />
+            <p th:errors="*{timestampStart}" class="text-danger"
+               th:if="${#fields.hasErrors('timestampStart')}"></p>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="timestampEnd" class="form-label">timestampEnd</label>
+            <input
+                    class="form-control"
+                    id="timestampEnd"
+                    name="timestampEnd"
+                    placeholder="Enter timestampEnd"
+                    th:field="*{timestampEnd}"
+                    type="datetime-local"
+            />
+            <p th:errors="*{timestampEnd}" class="text-danger"
+               th:if="${#fields.hasErrors('timestampEnd')}"></p>
+        </div>
+
+        <div class="form-group mb-3" th:attrappend="hidden=${hideOwner == true}?true">
+            <label for="user" class="form-label">User</label>
+            <input
+                    class="form-control"
+                    id="user"
+                    name="user"
+                    placeholder="Type to search..."
+                    th:field="*{user}"
+                    list="userDatalistOptions"
+            />
+            <datalist id="userDatalistOptions">
+                <option th:each="cur_user: ${users}" th:value="${cur_user.getId()}" th:text="${cur_user.toString()}"></option>
+            </datalist>
+
+            <p th:errors="*{user}" class="text-danger"
+               th:if="${#fields.hasErrors('user')}"></p>
+        </div>
+
+        <input id="id" name="id" th:field="*{id}" hidden/>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Save RentRecord</button>
+        </div>
+    </form>
+    <hr/>
+    <a th:href="@{./list}">Back to list</a>
+</div>
+
+</body>
+</html>
