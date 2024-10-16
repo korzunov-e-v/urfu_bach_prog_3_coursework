@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}"
+>
+
+<!--/*@thymesVar id="exception" type="java.lang.String"*/-->
+<!--/*@thymesVar id="code" type="java.lang.String"*/-->
+
+
+<head>
+    <title>Error</title>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <div class="row">
+        <h1 class="text-center">Error</h1>
+        <p th:text="${exception}"></p>
+        <p th:text="${code}"></p>
+        <hr/>
+        <a th:href="@{./list}">Back to list</a>
+    </div>
+</div>
+</body>
+</html>

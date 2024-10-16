@@ -59,7 +59,7 @@ public class RentController {
         User currentUser = userRepository.findByEmail(userDetail.getUsername());
         RentRecord rentrecord = rentrecordRepository.findById(id).orElseThrow();
         if (!(is_admin || rentrecord.getUser().getId() == (currentUser.getId()))) {
-            throw new AccessDeniedException("403 returned");
+            throw new AccessDeniedException("Permission denied");
         }
         ModelAndView mav = new ModelAndView("retrieve-rentrecord");
         mav.addObject("rentrecord", rentrecord);
@@ -100,7 +100,7 @@ public class RentController {
             rentrecord.setUser(user);
             boolean isOwner = rentrecord.getAuto().getOwner().getId() == user.getId();
             if (!isOwner) {
-                throw new AccessDeniedException("403 returned");
+                throw new AccessDeniedException("Permission denied");
             }
         }
         rentrecordRepository.save(rentrecord);
@@ -122,7 +122,7 @@ public class RentController {
             users = List.of(user);
             boolean isOwner = rentrecord.getUser().getId() == user.getId();
             if (!isOwner) {
-                throw new AccessDeniedException("403 returned");
+                throw new AccessDeniedException("Permission denied");
             }
         }
 
@@ -141,7 +141,7 @@ public class RentController {
         if (is_admin || is_owner) {
             rentrecordRepository.deleteAllById(List.of(rentrecordId));
         } else {
-            throw new AccessDeniedException("403 returned");
+            throw new AccessDeniedException("Permission denied");
         }
         return "redirect:./list";
     }

@@ -53,8 +53,8 @@ public class AutoController {
         boolean is_admin = request.isUserInRole("ROLE_ADMIN");
         User currentUser = userRepository.findByEmail(userDetail.getUsername());
         Auto auto = autoRepository.findById(id).orElseThrow();
-        if (!(is_admin || auto.getOwner().equals(currentUser))) {
-            throw new AccessDeniedException("403 returned");
+        if (!(is_admin || auto.getOwner().getId() == currentUser.getId())) {
+            throw new AccessDeniedException("Permission denied");
         }
         ModelAndView mav = new ModelAndView("retrieve-auto");
         mav.addObject("auto", auto);
@@ -110,7 +110,7 @@ public class AutoController {
             users = List.of(user);
             boolean isOwner = auto.getOwner().getId() == user.getId();
             if (!isOwner) {
-                throw new AccessDeniedException("403 returned");
+                throw new AccessDeniedException("Permission denied");
             }
         }
 
@@ -128,7 +128,7 @@ public class AutoController {
         if (is_admin || is_owner) {
             autoRepository.deleteById(autoId);
         } else {
-            throw new AccessDeniedException("403 returned");
+            throw new AccessDeniedException("Permission denied");
         }
         return "redirect:./list";
     }

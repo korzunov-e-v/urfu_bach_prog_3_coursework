@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}"
+>
+
+<head>
+    <title>Error</title>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <div class="row">
+        <h1 class="text-center">Error</h1>
+        <p>Something went wrong... =(</p>
+        <hr/>
+        <a th:href="@{/}">Back to index</a>
+    </div>
+</div>
+</body>
+</html>
