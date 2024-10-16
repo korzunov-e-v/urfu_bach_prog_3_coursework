@@ -205,5 +205,5 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-
-database
+testdb.sqlite3
+.env

@@ -1,0 +1,122 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}"
+>
+
+<!--/*@thymesVar id="hideOwner" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="auto" type="ru.ekorzunov.urfu_bach_prog_3_coursework.dto.AutoDto"*/-->
+<!--/*@thymesVar id="users" type="java.util.List<ru.ekorzunov.urfu_bach_prog_3_coursework.entity.User>"*/-->
+<!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
+
+
+<head>
+    <title>Edit Auto</title>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h3>Add/Change Auto</h3>
+
+    <form th:action="@{./save}" th:object="${auto}" method="POST" role="form" class="mt-3">
+        <div class="form-group mb-3">
+            <label for="regNumber" class="form-label">Registration number</label>
+            <input
+                    class="form-control"
+                    id="regNumber"
+                    name="regNumber"
+                    placeholder="Enter registration number"
+                    th:field="*{regNumber}"
+                    type="text"
+            />
+            <p th:errors="*{regNumber}" class="text-danger"
+               th:if="${#fields.hasErrors('regNumber')}"></p>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="manufacturer" class="form-label">Manufacturer</label>
+            <input
+                    class="form-control"
+                    id="manufacturer"
+                    name="manufacturer"
+                    placeholder="Enter manufacturer"
+                    th:field="*{manufacturer}"
+                    type="text"
+            />
+            <p th:errors="*{manufacturer}" class="text-danger"
+               th:if="${#fields.hasErrors('manufacturer')}"></p>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="model" class="form-label">Model</label>
+            <input
+                    class="form-control"
+                    id="model"
+                    name="model"
+                    placeholder="Enter model"
+                    th:field="*{model}"
+                    type="text"
+            />
+            <p th:errors="*{model}" class="text-danger"
+               th:if="${#fields.hasErrors('model')}"></p>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="year" class="form-label">Year</label>
+            <input
+                    class="form-control"
+                    id="year"
+                    name="year"
+                    placeholder="Enter year"
+                    th:field="*{year}"
+                    type="number"
+                    min="1900"
+                    max="2100"
+            />
+            <p th:errors="*{year}" class="text-danger"
+               th:if="${#fields.hasErrors('year')}"></p>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="color" class="form-label">Color</label>
+            <input
+                    class="form-control"
+                    id="color"
+                    name="color"
+                    placeholder="Enter color"
+                    th:field="*{color}"
+                    type="text"
+            />
+            <p th:errors="*{color}" class="text-danger"
+               th:if="${#fields.hasErrors('color')}"></p>
+        </div>
+
+        <div class="form-group mb-3" th:attrappend="hidden=${hideOwner == true}?true">
+            <label for="owner" class="form-label">Owner</label>
+            <input
+                    class="form-control"
+                    id="owner"
+                    name="owner"
+                    placeholder="Type to search..."
+                    th:field="*{owner}"
+                    list="datalistOptions"
+            />
+            <datalist id="datalistOptions">
+                <option th:each="cur_user: ${users}" th:value="${cur_user.getId()}" th:text="${cur_user.toString()}"></option>
+            </datalist>
+
+            <p th:errors="*{owner}" class="text-danger"
+               th:if="${#fields.hasErrors('owner')}"></p>
+        </div>
+
+        <input id="id" name="id" th:field="*{id}" hidden/>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Save Auto</button>
+        </div>
+    </form>
+    <hr/>
+    <a th:href="@{./list}">Back to list</a>
+</div>
+
+</body>
+</html>

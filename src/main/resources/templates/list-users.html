@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}"
+>
+
+<!--/*@thymesVar id="users" type="java.util.List<ru.ekorzunov.urfu_bach_prog_3_coursework.dto.UserDto>"*/-->
+
+<head>
+    <title>Users</title>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <div class="row col-md-10">
+        <h2>List of Registered Users</h2>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text='${user.getRolesString()}'></td>
+            <td>
+                <a th:href="@{./users/update(userId=${user.id})}" class="btn btn-info">Update</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

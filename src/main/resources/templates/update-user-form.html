@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{base.html}"
+>
+
+<!--/*@thymesVar id="user" type="ru.ekorzunov.urfu_bach_prog_3_coursework.dto.UserDto"*/-->
+<!--/*@thymesVar id="allRoles" type="java.util.List<ru.ekorzunov.urfu_bach_prog_3_coursework.entity.Role>"*/-->
+<!--/*@thymesVar id="userRoles" type="java.util.List<java.lang.String>"*/-->
+<!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
+<!--/*@thymesVar id="#authentication" type="org.springframework.security.core.Authentication"*/-->
+
+<head>
+    <title>Update User</title>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <div class="row col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Update info</h2>
+            </div>
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    You have successfully registered our app!
+                </div>
+            </div>
+            <div class="card-body">
+                <form
+                        method="post"
+                        role="form"
+                        th:action="@{/users/update/save}"
+                        th:object="${user}"
+                >
+                    <div class="form-group mb-3">
+                        <label class="form-label">First Name</label>
+                        <input
+                                class="form-control"
+                                id="firstName"
+                                name="firstName"
+                                placeholder="Enter first name"
+                                th:field="*{firstName}"
+                                type="text"
+                        />
+                        <p th:errors="*{firstName}" class="text-danger"
+                           th:if="${#fields.hasErrors('firstName')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input
+                                class="form-control"
+                                id="lastName"
+                                name="lastName"
+                                placeholder="Enter last name"
+                                th:field="*{lastName}"
+                                type="text"
+                        />
+                        <p th:errors="*{lastName}" class="text-danger"
+                           th:if="${#fields.hasErrors('lastName')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Email</label>
+                        <input
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="Enter email address"
+                                th:field="*{email}"
+                                type="email"
+                        />
+                        <p th:errors="*{email}" class="text-danger"
+                           th:if="${#fields.hasErrors('email')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Password</label>
+                        <input
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                placeholder="Enter new password"
+                                th:field="*{password}"
+                                type="password"
+                                value=""
+                        />
+                        <p th:errors="*{password}" class="text-danger"
+                           th:if="${#fields.hasErrors('password')}"></p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Roles</label>
+                        <select id="roleSelect" class="form-select" multiple="multiple" name="roles">
+                            <option th:each="cur_role: ${allRoles}"
+                                    th:value="${cur_role.getId()}"
+                                    th:text="${cur_role.toString()}"
+                                    th:selected='${userRoles.contains(cur_role.getName())}'
+                            ></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input hidden th:field="*{id}">
+                        <button class="btn btn-primary" type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#roleSelect').multiselect({
+                includeSelectAllOption: true,
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

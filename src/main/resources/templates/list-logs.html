@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}"
+>
+
+<!--/*@thymesVar id="logs" type="java.util.List<ru.ekorzunov.urfu_bach_prog_3_coursework.entity.UserAction>"*/-->
+<!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
+
+<head>
+    <title>User action log</title>
+</head>
+
+<body>
+<div class="container" layout:fragment="content">
+    <table class="table table-bordered table-striped mt-3" id="logRecordTable">
+        <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>User</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Status Code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="logRecord: ${logs}">
+            <td th:text="${logRecord.getTimestamp()}"></td>
+            <td th:text="${logRecord.getUser()}"></td>
+            <td th:text="${logRecord.getDescription()}"></td>
+            <td th:text="${logRecord.getStatus()}"></td>
+            <td th:text="${logRecord.getStatusCode()}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#logRecordTable").DataTable({
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+        });
+    })
+</script>
+</body>
+</html>

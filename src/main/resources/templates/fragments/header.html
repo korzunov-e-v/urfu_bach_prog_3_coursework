@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<!--/*@thymesVar id="#authentication" type="org.springframework.security.core.Authentication"*/-->
+<head>
+    <title></title>
+</head>
+<body>
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="header">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/index}">Parking Management System</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-nav flex-sm-row container-fluid" sec:authorize="isAuthenticated()">
+                    <div class="navbar-nav" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-item nav-link active" aria-current="page" th:href="@{/users}">Users</a>
+                    </div>
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" aria-current="page" th:href="@{/autos/}">Autos</a>
+                    </div>
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" aria-current="page" th:href="@{/rentrecords/}">RentRecords</a>
+                    </div>
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" aria-current="page" th:href="@{/useractions/}">UserActions</a>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-nav">
+                <div class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <a class="nav-item nav-link active" aria-current="page" th:href="@{/login}">Login</a>
+                    <a class="nav-item nav-link active" aria-current="page" th:href="@{/register}">Register</a>
+                </div>
+                <div class="navbar-nav dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#"
+                       role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false"
+                       th:text="${#authentication.principal.getUsername()}">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-dark">
+                        <a class="nav-item nav-link active" aria-current="page" th:href="@{/account}">Account</a>
+                        <a class="nav-item nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

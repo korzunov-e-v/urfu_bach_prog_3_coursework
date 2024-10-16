@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}"
+>
+
+<!--/*@thymesVar id="autos" type="java.util.List<ru.ekorzunov.urfu_bach_prog_3_coursework.entity.Auto>"*/-->
+<!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
+
+<head>
+    <title>List Autos</title>
+</head>
+
+<body>
+<div class="container" layout:fragment="content">
+    <a th:href="@{./add}" class="btn btn-primary">Add Auto</a>
+    <table class="table table-bordered table-striped mt-3" id="autoTable">
+        <thead>
+        <tr>
+            <th>Reg number</th>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Color</th>
+            <th>Owner</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="auto: ${autos}">
+            <td><a th:text="${auto.getRegNumber()}" th:href="@{./{autoId}(autoId = ${auto.getId()})}"></a></td>
+            <td th:text="${auto.getManufacturer()}"></td>
+            <td th:text="${auto.getModel()}"></td>
+            <td th:text="${auto.getYear()}"></td>
+            <td th:text="${auto.getColor()}"></td>
+            <td th:text="${auto.getOwner().toString()}"></td>
+            <td>
+                <a th:href="@{./update(autoId=${auto.id})}" class="btn btn-info">Update</a>
+                <a th:href="@{./delete(autoId=${auto.id})}" class="btn btn-danger ml-2">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#autoTable").DataTable({
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+        });
+    })
+</script>
+</body>
+</html>
