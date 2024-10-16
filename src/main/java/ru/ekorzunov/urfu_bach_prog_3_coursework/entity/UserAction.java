@@ -30,7 +30,7 @@ public class UserAction {
     private StatusEnum status;
 
     @Column(name = "status_code", nullable = false)
-    private int status_code;
+    private int statusCode;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name = "timestamp")

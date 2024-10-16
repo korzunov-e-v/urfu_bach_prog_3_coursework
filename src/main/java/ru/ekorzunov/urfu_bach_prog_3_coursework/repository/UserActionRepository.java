@@ -12,4 +12,10 @@ public interface UserActionRepository extends JpaRepository<UserAction, Long> {
 
     List<UserAction> findAllByUser(User owner);
 
+    List<UserAction> findAllByUserId(long userId);
+
+    List<UserAction> findAllByUserIdOrderByTimestampDesc(long userId);
+
+    List<UserAction> findAllByOrderByTimestampDesc();
+
 }
